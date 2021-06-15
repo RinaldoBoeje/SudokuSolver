@@ -7,53 +7,55 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
 
+import java.util.List;
 import java.util.Random;
 
 public class SudokuPane {
 
+	private GridPane gridPane;
+	
+	private int cellValue;
+	
 	public SudokuPane() {
 		
 	}
 	
 	public GridPane drawPane(){
-		GridPane gridPane = new GridPane();
+		 gridPane = new GridPane();
 		
 		gridPane.setHgap(15);
 		gridPane.setVgap(15);
 		gridPane.setPadding(new Insets(15, 0, 0,15));
 		gridPane.setStyle("-fx-background-color: #aaaaff;");
-		gridPane.setGridLinesVisible(true);
+		gridPane.setGridLinesVisible(true); //TODO REMOVE
 		gridPane.autosize();
 		gridPane.setPrefSize(800, 800);
-		
-		
-		
-		for(int col = 0; col < 9; col++) {
-			gridPane.getColumnConstraints().add(new ColumnConstraints(((750-(7*15))/9)));
-			gridPane.getRowConstraints().add(new RowConstraints(((750-(7*15))/9)));
-			for(int row = 0; row<9; row++) {
-				
-				
-				
-				//TEMPORARY TODO REMOVE
-				Random rand = new Random();
-				int randInt = rand.nextInt(10);
-				
-				
-				if(randInt == 0) {
-					gridPane.add(drawGridCell(), row, col);
-					//gridPane.add(drawCell(randInt), row, col);
-				}
-				else {
-					gridPane.add(drawCell(randInt), row, col);
-				}
-				
-			}
-		}
 
 		return gridPane;
 	}
 	
+	public GridPane fillGrid(List<String> puzzle) {
+		
+		for(int row = 0; row < 9; row++) {
+			gridPane.getColumnConstraints().add(new ColumnConstraints(((750-(7*15))/9)));
+			gridPane.getRowConstraints().add(new RowConstraints(((750-(7*15))/9)));
+			for(int col = 0; col<9; col++) {
+				
+				cellValue = Character.getNumericValue(puzzle.get(row).charAt(col));	
+				
+				if(cellValue == 0) {
+					gridPane.add(drawGridCell(), col, row);
+				}
+				else {
+					gridPane.add(drawCell(cellValue), col, row);
+				}
+				
+			}
+		}
+		
+		
+		return gridPane;
+	}
 	
 	
 	public Text drawCell(int value) {
@@ -68,7 +70,7 @@ public class SudokuPane {
 		pos.setPadding(new Insets(0, 0, 0, 0));
 		pos.setStyle("-fx-background-color: #aaffaa;");
 		pos.setMaxSize(64, 64);
-		pos.setGridLinesVisible(true);
+		pos.setGridLinesVisible(true); //TODO REMOVE
 		
 		int innerInt = 1;
 		for(int v = 0; v < 3; v++) {

@@ -1,17 +1,12 @@
 package controller;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import view.MyScene;
+import view.MainScene;
 
 
 public class MainController extends Application {
-	private MyScene myScene;
-	
 	public MainController() {
 	}
 
@@ -21,18 +16,10 @@ public class MainController extends Application {
 	
 	@Override
 	public void start(Stage stage) throws Exception {
-		Pane pane = new Pane();
-		
-		stage.setScene(new MyScene(new VBox(), 925, 800));
+		stage.setScene(new MainScene(new VBox(), 925, 800, new GameController()));
 		stage.setResizable(false);
 		stage.setTitle("Sudoku Solver");
 		stage.show();	
 	}
-	
-	public void exit() {
-		System.exit(0);
-	}
-	
-	
 	
 }
