@@ -5,10 +5,11 @@ import java.util.List;
 public class SudokuField {
 
 	private Cell[][] field;
-	
+	private Block block;	
 	
 	public SudokuField() {
 		field = new Cell[9][9];
+		block = new Block();
 	}
 	
 	public void initializeField(List<String> puzzle) {
@@ -19,20 +20,28 @@ public class SudokuField {
 				
 				colValue = Character.getNumericValue(puzzle.get(row).charAt(col));
 				
+				
+				
 				if(colValue != 0) {
-					//set value
 					field[row][col] = new Cell();
 					field[row][col].setValue(col);
+					field[row][col].setBlock(block.AssignBlocks(row, col));
 					
-					System.out.println(field[row][col]);
+					System.out.println(field[row][col].getValue() + " : " + field[row][col].getBlock());
 				}
 				else {
 					field[row][col] = new Cell();
-					System.out.println(field[row][col]);
+					field[row][col].setBlock(block.AssignBlocks(row, col));
+					System.out.println(field[row][col].getValue() + " : " + field[row][col].getBlock());
 				}
 			}
 			
 		}
 
+	}
+	
+	public Cell[][] getCells(){
+		return field;
+		
 	}
 }

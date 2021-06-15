@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import view.SudokuPane;
+import model.Cell;
 import model.SudokuField;
 public class GameController {
 
@@ -77,4 +78,18 @@ public class GameController {
 	}
 	
 	
+	public void Solver() {
+			
+		Cell[][] cells = sudokuField.getCells();
+		
+		
+		
+		//Temp to check if all data required is present
+		isPresent();
+		
+	}
+	
+	private void isPresent() {
+		System.out.println(sudokuField.getCells());
+	}
 }

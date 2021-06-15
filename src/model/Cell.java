@@ -4,6 +4,7 @@ public class Cell {
 	
 	private int value;
 	private int[] possibilities = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+	private int block;
 	
 	
 	public Cell() {
@@ -17,7 +18,7 @@ public class Cell {
 	
 	public void setValue(int value) {
 		this.value = value;
-		for(int i : possibilities) {
+		for(int i = 0; i < possibilities.length; i++) {
 			possibilities[i] = 0;
 		}
 	}
@@ -31,5 +32,13 @@ public class Cell {
 	//so value(6) -1 = (5)
 	public void removePossibilityValue(int index) {
 		possibilities[index] = 0;
+	}
+	
+	public void setBlock(int block) {
+		this.block = block;
+	}
+	
+	public int getBlock() {
+		return block;
 	}
 }
