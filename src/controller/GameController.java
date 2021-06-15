@@ -8,10 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import view.SudokuPane;
+import model.SudokuField;
 public class GameController {
 
 	private List<String> puzzle;
 	public SudokuPane sudokuPane;
+	private SudokuField sudokuField;
 	
 	GameController(){
 		
@@ -37,6 +39,10 @@ public class GameController {
 		if(verifyPuzzle(puzzle, file) == true) {
 			//return puzzle;
 			sudokuPane.fillGrid(puzzle);
+			//save values to model
+			sudokuField = new SudokuField();
+			sudokuField.initializeField(puzzle);
+			
 		}
 		return null;
 	}
