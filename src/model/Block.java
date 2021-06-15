@@ -2,15 +2,16 @@ package model;
 
 public class Block {
 
-	int block;
+	private int block;
+	
+
 	
 	public Block() {
 		
 	}
-	
-	
-	
-	public int AssignBlocks(int row, int col) {
+		
+
+	public int GetBlock(int row, int col) {
 		
 		if(row >= 0 && row <= 2) {
 			if(col >= 0 && col <=2) {

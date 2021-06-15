@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import view.SudokuPane;
+import model.Block;
 import model.Cell;
 import model.SudokuField;
 public class GameController {
@@ -15,6 +16,13 @@ public class GameController {
 	private List<String> puzzle;
 	public SudokuPane sudokuPane;
 	private SudokuField sudokuField;
+	
+	Block block;
+	Cell[][] allCells;
+	String[][] currentBlock;
+	int cbRow;
+	int cbCol;
+	int currentBlockValue;
 	
 	GameController(){
 		
@@ -80,16 +88,34 @@ public class GameController {
 	
 	public void Solver() {
 			
-		Cell[][] cells = sudokuField.getCells();
+		block = new Block();
+		allCells = sudokuField.getCells();
+		currentBlock = new String[3][3];
+		cbRow = 0;
+		cbCol = 0;
 		
+		currentBlockValue = 1;
 		
+		//Set values for current block
+		for(int row = 0; row < 9; row++) {
+			for(int col = 0; col < 9; col++) {
+				if(block.GetBlock(row, col) == currentBlockValue) {
+					currentBlock[cbRow][cbCol] = String.valueOf(row)+String.valueOf(col);
+					if(cbCol == 2) {
+						cbCol = 0;
+						cbRow++;
+					}
+					else {
+						cbCol++;
+					}
+				}
+			}
+		}
 		
-		//Temp to check if all data required is present
-		isPresent();
+
+		
+
 		
 	}
-	
-	private void isPresent() {
-		System.out.println(sudokuField.getCells());
-	}
+
 }

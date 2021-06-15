@@ -5,7 +5,7 @@ import java.util.List;
 public class SudokuField {
 
 	private Cell[][] field;
-	private Block block;	
+	private Block block;
 	
 	public SudokuField() {
 		field = new Cell[9][9];
@@ -20,19 +20,15 @@ public class SudokuField {
 				
 				colValue = Character.getNumericValue(puzzle.get(row).charAt(col));
 				
-				
-				
 				if(colValue != 0) {
 					field[row][col] = new Cell();
 					field[row][col].setValue(col);
-					field[row][col].setBlock(block.AssignBlocks(row, col));
 					
-					System.out.println(field[row][col].getValue() + " : " + field[row][col].getBlock());
+					System.out.println(field[row][col].getValue() + " : ");
 				}
 				else {
 					field[row][col] = new Cell();
-					field[row][col].setBlock(block.AssignBlocks(row, col));
-					System.out.println(field[row][col].getValue() + " : " + field[row][col].getBlock());
+					System.out.println(field[row][col].getValue() + " : ");
 				}
 			}
 			

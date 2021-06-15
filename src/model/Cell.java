@@ -4,7 +4,7 @@ public class Cell {
 	
 	private int value;
 	private int[] possibilities = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-	private int block;
+	//private int block;
 	
 	
 	public Cell() {
@@ -34,11 +34,11 @@ public class Cell {
 		possibilities[index] = 0;
 	}
 	
-	public void setBlock(int block) {
+	/*public void setBlock(int block) {
 		this.block = block;
 	}
 	
 	public int getBlock() {
 		return block;
-	}
+	}*/
 }
