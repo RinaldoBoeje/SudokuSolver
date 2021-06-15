@@ -22,7 +22,6 @@ public class GameController {
 	String[][] currentBlock;
 	int cbRow;
 	int cbCol;
-	int currentBlockValue;
 	
 	GameController(){
 		
@@ -94,8 +93,86 @@ public class GameController {
 		cbRow = 0;
 		cbCol = 0;
 		
-		currentBlockValue = 1;
 		
+		
+		int foundValue;
+		ArrayList<Integer>foundPossibilities = new ArrayList<Integer>();
+		int checkBlock = 0; //== current block;
+		int checkRow = 0;
+		int checkCol = 0;
+		int checkCurrent[] = new int[2];
+		int foundPossibleValue;
+		
+		int checkPossible[] = new int[2];
+		
+		//Loop through block
+		for(int block = 0; block <9; block++) {
+			SetCurrentBlock(block);
+			
+			for(int br = 0; br < 3; br++) {
+				for(int bc = 0; bc<3; bc++) {
+					//This is not working, 
+					checkCurrent[0] = Character.getNumericValue(currentBlock[br][bc].charAt(0));
+					checkCurrent[1] = Character.getNumericValue(currentBlock[br][bc].charAt(1));
+					
+					//Puzzle 1, first value to be found is value 2. Why is it removing value 2? 
+					foundValue = allCells[checkCurrent[0]][checkCurrent[1]].getValue();
+					if(foundValue != 0) {
+						
+						//loop through block and mark possibility
+						for(int posRow = 0; posRow<3; posRow++) {
+							for(int posCol =0; posCol <3; posCol++) {
+								checkCurrent[0] = Character.getNumericValue(currentBlock[posRow][posCol].charAt(0));
+								checkCurrent[1] = Character.getNumericValue(currentBlock[posRow][posCol].charAt(1));
+								
+								//This removes found possiblevalue from list
+								//TODO, remove possibleValue after all possible values have been found
+								//use foundPossibillities
+								foundPossibleValue = allCells[checkCurrent[0]][checkCurrent[1]].getValue();
+								if(foundPossibleValue == 0) {
+									allCells[checkCurrent[0]][checkCurrent[1]].removePossibilityValue(foundValue);
+									
+									//TODO remove sys.out
+									System.out.println("Wakka Fakka We killed da numbah!");
+									/*int numberOfPossibillities = 9;
+									for(int value : allCells[checkCurrent[0]][checkCurrent[1]].getPossibilities()) {
+										if(value != 0)
+										{
+											numberOfPossibillities--;
+										}
+									}
+									if(numberOfPossibillities == 1) {
+										allCells[checkCurrent[0]][checkCurrent[1]].setValue(foundValue);
+									}*/
+								}								
+							}
+						}
+						
+						
+					}
+					else
+					{
+						//go next
+					}
+					
+					
+				}
+			}
+		}
+		
+		
+		
+		//loop through row
+		
+		//loop through col
+		
+		
+	}	
+	
+	private void SetCurrentBlock(int currentBlockValue) {
+		
+		cbCol=0;
+		cbRow=0;
 		//Set values for current block
 		for(int row = 0; row < 9; row++) {
 			for(int col = 0; col < 9; col++) {
@@ -111,11 +188,23 @@ public class GameController {
 				}
 			}
 		}
-		
-
-		
-
+	}
+	
+	private void RemovePossibillity() {
 		
 	}
-
+	
+	//remove
+	public void showMeTheMoney() {
+		for(int i=0;i<9;i++) {
+			for(int j =0;j<9;j++) {
+				System.out.println("Row: " + i + " Col: " + j);
+				for(int number : allCells[i][j].getPossibilities()) {
+					System.out.print(number);
+				}
+				System.out.println("");
+			}
+		}
+	}
+	
 }

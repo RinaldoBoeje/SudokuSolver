@@ -31,7 +31,7 @@ public class Cell {
 	//e.g. if found value is 6, to remove 6 you have to use array index 5, 
 	//so value(6) -1 = (5)
 	public void removePossibilityValue(int index) {
-		possibilities[index] = 0;
+		possibilities[index-1] = 0;
 	}
 	
 	/*public void setBlock(int block) {

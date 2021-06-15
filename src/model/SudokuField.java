@@ -23,12 +23,9 @@ public class SudokuField {
 				if(colValue != 0) {
 					field[row][col] = new Cell();
 					field[row][col].setValue(col);
-					
-					System.out.println(field[row][col].getValue() + " : ");
 				}
 				else {
 					field[row][col] = new Cell();
-					System.out.println(field[row][col].getValue() + " : ");
 				}
 			}
 			
