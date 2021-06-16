@@ -86,13 +86,17 @@ public class GameController {
 	
 	
 	public void Solver() {
-			
+		
+		
+		
 		block = new Block();
 		allCells = sudokuField.getCells();
 		currentBlock = new String[3][3];
 		cbRow = 0;
 		cbCol = 0;
 		
+		//TODO REmove
+		writeField();
 		
 		
 		int foundValue;
@@ -111,7 +115,7 @@ public class GameController {
 			
 			for(int br = 0; br < 3; br++) {
 				for(int bc = 0; bc<3; bc++) {
-					//This is not working, 
+					
 					checkCurrent[0] = Character.getNumericValue(currentBlock[br][bc].charAt(0));
 					checkCurrent[1] = Character.getNumericValue(currentBlock[br][bc].charAt(1));
 					
@@ -131,9 +135,9 @@ public class GameController {
 								foundPossibleValue = allCells[checkCurrent[0]][checkCurrent[1]].getValue();
 								if(foundPossibleValue == 0) {
 									allCells[checkCurrent[0]][checkCurrent[1]].removePossibilityValue(foundValue);
+
 									
-									//TODO remove sys.out
-									System.out.println("Wakka Fakka We killed da numbah!");
+									
 									/*int numberOfPossibillities = 9;
 									for(int value : allCells[checkCurrent[0]][checkCurrent[1]].getPossibilities()) {
 										if(value != 0)
@@ -204,6 +208,16 @@ public class GameController {
 				}
 				System.out.println("");
 			}
+		}
+	}
+	
+	public void writeField() {
+		System.out.println();
+		for(int i =0; i<9; i++) {
+			for(int j =0; j<9; j++) {
+				System.out.print(sudokuField.getCells()[i][j].getValue());
+			}
+			System.out.println("");
 		}
 	}
 	

@@ -22,7 +22,7 @@ public class SudokuField {
 				
 				if(colValue != 0) {
 					field[row][col] = new Cell();
-					field[row][col].setValue(col);
+					field[row][col].setValue(colValue);
 				}
 				else {
 					field[row][col] = new Cell();
