@@ -34,7 +34,7 @@ public class MainScene extends Scene{
 
 		borderPane.setLeft(buttonPane.drawPane());
 		borderPane.setCenter(sudokuPane.drawPane());
-		
+
 		parent.getChildren().addAll(createMenu(), borderPane);
 		
 	}
