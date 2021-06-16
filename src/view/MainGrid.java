@@ -5,6 +5,7 @@ import java.util.List;
 import controller.GameController;
 import javafx.geometry.Insets;
 import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
@@ -13,6 +14,9 @@ public class MainGrid {
 
 	private GameController gameController;
 
+	private BlockGrid blockGrid;
+	private CellGrid cellGrid;
+	
 	private GridPane gridPane;
 	private int cellValue;
 
@@ -26,8 +30,8 @@ public class MainGrid {
 		gridPane.setHgap(15);
 		gridPane.setVgap(15);
 		gridPane.setPadding(new Insets(15, 0, 0, 15));
-		gridPane.setStyle("-fx-background-color: #aaaaff;");
-		gridPane.setGridLinesVisible(true); // TODO REMOVE
+		gridPane.setStyle("-fx-background-color: #202020;");
+		gridPane.setGridLinesVisible(false); // TODO REMOVE
 		gridPane.autosize();
 		gridPane.setPrefSize(800, 800);
 
@@ -53,6 +57,25 @@ public class MainGrid {
 		}
 
 		return gridPane;
+		
+		//TODO
+		//create new grid with loaded values
+		//create new blocks with 9 cells
+		//create new rows with 9 cells
+		//create new columns with 9 cells
+		
+		
+		//connect gameController to block/row/column that is in action
+		//connect gameController to cell that is in action
+		//connect gameController to cell to possibility that is in action
+	}
+	
+	public FlowPane createBlockGrid() {
+		
+		
+		
+		
+		return null;
 	}
 
 	public Text drawCell(int value) {
