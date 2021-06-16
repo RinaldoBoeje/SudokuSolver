@@ -6,10 +6,14 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
+import controller.GameController;
+
 public class ButtonPane {
 
-	public ButtonPane() {
-		
+	private GameController gameController;
+	
+	public ButtonPane(GameController gameController) {
+		this.gameController = gameController;
 	}
 	
 	public VBox drawPane() {
@@ -21,13 +25,14 @@ public class ButtonPane {
 		vBox.setSpacing(10);
 		vBox.setStyle("-fx-background-color: #F0F9FF;");
 		
-		Button btnStop = new Button("Stop");
-		btnStop.setPrefSize(75, 20);
+		Button btnStep = new Button("Step");
+		btnStep.setPrefSize(75, 20);
 		
 		Button btnAuto = new Button("Auto");
 		btnAuto.setPrefSize(75, 20);
+		btnAuto.setOnAction(e -> this.gameController.Solver());
 		
-		vBox.getChildren().addAll(btnStop, btnAuto);
+		vBox.getChildren().addAll(btnStep, btnAuto);
 		
 		return vBox;
 	}

@@ -48,8 +48,9 @@ public class GameController {
 		bufferedReader.close();
 		if(verifyPuzzle(puzzle, file) == true) {
 			//return puzzle;
-			sudokuPane.fillGrid(puzzle);
-			//save values to model
+			
+			sudokuPane.InitializeGrid(puzzle);
+			// save values to model
 			sudokuField = new SudokuField();
 			sudokuField.initializeField(puzzle);
 			

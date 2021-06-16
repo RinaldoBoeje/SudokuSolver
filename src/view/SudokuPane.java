@@ -1,90 +1,41 @@
 package view;
 
-import javafx.geometry.Insets;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.text.Text;
-
+import javafx.scene.layout.TilePane;
 import java.util.List;
-import java.util.Random;
+
+
+import controller.GameController;
 
 public class SudokuPane {
 
-	private GridPane gridPane;
-	
-	private int cellValue;
-	
-	public SudokuPane() {
-		
-	}
-	
-	public GridPane drawPane(){
-		 gridPane = new GridPane();
-		
-		gridPane.setHgap(15);
-		gridPane.setVgap(15);
-		gridPane.setPadding(new Insets(15, 0, 0,15));
-		gridPane.setStyle("-fx-background-color: #aaaaff;");
-		gridPane.setGridLinesVisible(true); //TODO REMOVE
-		gridPane.autosize();
-		gridPane.setPrefSize(800, 800);
+	private GameController gameController;
 
-		return gridPane;
-	}
+	private MainGrid mainGrid;
 	
-	public GridPane fillGrid(List<String> puzzle) {
-		
-		for(int row = 0; row < 9; row++) {
-			gridPane.getColumnConstraints().add(new ColumnConstraints(((750-(7*15))/9)));
-			gridPane.getRowConstraints().add(new RowConstraints(((750-(7*15))/9)));
-			for(int col = 0; col<9; col++) {
-				
-				cellValue = Character.getNumericValue(puzzle.get(row).charAt(col));	
-				
-				if(cellValue == 0) {
-					gridPane.add(drawGridCell(), col, row);
-				}
-				else {
-					gridPane.add(drawCell(cellValue), col, row);
-				}
-				
-			}
-		}
-		
-		
-		return gridPane;
-	}
-	
-	
-	public Text drawCell(int value) {
-		return new Text(String.valueOf(value));
-	}
-	
-	public GridPane drawGridCell( ) {
-		GridPane pos = new GridPane();
-		
-		pos.setVgap(5);
-		pos.setHgap(5);
-		pos.setPadding(new Insets(0, 0, 0, 0));
-		pos.setStyle("-fx-background-color: #aaffaa;");
-		pos.setMaxSize(64, 64);
-		pos.setGridLinesVisible(true); //TODO REMOVE
-		
-		int innerInt = 1;
-		for(int v = 0; v < 3; v++) {
-			pos.getColumnConstraints().add(new ColumnConstraints(18));
-			pos.getRowConstraints().add(new RowConstraints(18));
-			for(int h = 0; h < 3; h++) {
-				
+	private TilePane tilePane;
 
-				pos.add(new Text(String.valueOf(innerInt)), h, v);
-				innerInt++;
-			}
-		}
-		
-		return pos;
+	public SudokuPane(GameController gameController) {
+		this.gameController = gameController;
+		this.tilePane = new TilePane();
 	}
-			
+	
+	public TilePane drawPane() {
+		mainGrid = new MainGrid(gameController);
+		
+		tilePane.setStyle("-fx-background-color: #202020");
+		tilePane.getChildren().add(mainGrid.drawPane());
+		
+		return tilePane;
+	}
+	
+	public void InitializeGrid(List<String> puzzle) {
+		
+		mainGrid.fillGrid(puzzle);
+	}
+
+	// SudokuPane
+	//// gridpane
+	////// cellpane
+	//////// possibillitypane
+
 }

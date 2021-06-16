@@ -21,17 +21,22 @@ public class MainScene extends Scene{
 	private GameController gameController;
 	
 	private SudokuPane sudokuPane;
-
+	private ButtonPane buttonPane;
 	
 
 	public MainScene(VBox parent, double width, double height, GameController gameController) {
 		super(parent, width, height);
+		this.gameController = gameController;
 
 		borderPane = new BorderPane();
-		borderPane.setLeft(createButtonPane());
-		borderPane.setCenter(createSudokuPane());
+		buttonPane = new ButtonPane(gameController);
+		sudokuPane = new SudokuPane(gameController);
+
+		borderPane.setLeft(buttonPane.drawPane());
+		borderPane.setCenter(sudokuPane.drawPane());
+		
 		parent.getChildren().addAll(createMenu(), borderPane);
-		this.gameController = gameController;
+		
 	}
 	
 	//Menu bar
@@ -42,12 +47,8 @@ public class MainScene extends Scene{
 		MenuItem load = new MenuItem("Load puzzle...");
 		load.setOnAction(e -> {
 			try {
-				this.gameController.sudokuPane = sudokuPane;
+				this.gameController.sudokuPane = sudokuPane; //Move to after data is loaded
 				this.gameController.readPuzzle(loadPuzzle());
-				//TODO REMOVE, Put under button, JUST TEMP
-				this.gameController.Solver();
-				//TODO REMOVE
-				//this.gameController.showMeTheMoney();
 			} catch (IOException | SudokuException e1) {
 			}
 		});
@@ -62,16 +63,11 @@ public class MainScene extends Scene{
 	
 	//ButtonPane
 	public VBox createButtonPane() {
-		ButtonPane buttonPane = new ButtonPane();
+		
 		return buttonPane.drawPane();
 	}
 	
-	//SudokuPane
-	public GridPane createSudokuPane() {
-		sudokuPane = new SudokuPane();
-		return sudokuPane.drawPane();
-	}
-	
+
 	//Load Puzzle
 	private File loadPuzzle()
 	{
