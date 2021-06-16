@@ -23,6 +23,8 @@ public class GameController {
 	int cbRow;
 	int cbCol;
 	
+	boolean hasChanged;
+	
 	GameController(){
 		
 	}
@@ -95,80 +97,116 @@ public class GameController {
 		cbRow = 0;
 		cbCol = 0;
 		
-		//TODO REmove
-		writeField();
 		
 		
 		int foundValue;
 		ArrayList<Integer>foundPossibilities = new ArrayList<Integer>();
-		int checkBlock = 0; //== current block;
-		int checkRow = 0;
-		int checkCol = 0;
 		int checkCurrent[] = new int[2];
 		int foundPossibleValue;
 		
 		int checkPossible[] = new int[2];
 		
-		//Loop through block
-		for(int block = 0; block <9; block++) {
-			SetCurrentBlock(block);
+		
+		//TODO REMOVE
+		System.out.println("----------");
+		System.out.print("before Anything changed");
+		WriteField();
+		
+		hasChanged = true;
+		while(hasChanged == true) {
+			hasChanged = false;
 			
-			for(int br = 0; br < 3; br++) {
-				for(int bc = 0; bc<3; bc++) {
-					
-					checkCurrent[0] = Character.getNumericValue(currentBlock[br][bc].charAt(0));
-					checkCurrent[1] = Character.getNumericValue(currentBlock[br][bc].charAt(1));
-					
-					//Puzzle 1, first value to be found is value 2. Why is it removing value 2? 
-					foundValue = allCells[checkCurrent[0]][checkCurrent[1]].getValue();
-					if(foundValue != 0) {
+			//Loop through block
+			for(int block = 0; block <9; block++) {
+				SetCurrentBlock(block);
+				
+				for(int br = 0; br < 3; br++) {
+					for(int bc = 0; bc<3; bc++) {
 						
-						//loop through block and mark possibility
-						for(int posRow = 0; posRow<3; posRow++) {
-							for(int posCol =0; posCol <3; posCol++) {
-								checkCurrent[0] = Character.getNumericValue(currentBlock[posRow][posCol].charAt(0));
-								checkCurrent[1] = Character.getNumericValue(currentBlock[posRow][posCol].charAt(1));
-								
-								//This removes found possiblevalue from list
-								//TODO, remove possibleValue after all possible values have been found
-								//use foundPossibillities
-								foundPossibleValue = allCells[checkCurrent[0]][checkCurrent[1]].getValue();
-								if(foundPossibleValue == 0) {
-									allCells[checkCurrent[0]][checkCurrent[1]].removePossibilityValue(foundValue);
-
+						checkCurrent[0] = Character.getNumericValue(currentBlock[br][bc].charAt(0));
+						checkCurrent[1] = Character.getNumericValue(currentBlock[br][bc].charAt(1));
+						
+						//Puzzle 1, first value to be found is value 2. Why is it removing value 2? 
+						foundValue = allCells[checkCurrent[0]][checkCurrent[1]].getValue();
+						if(foundValue != 0) {
+							
+							//loop through block and mark possibility
+							for(int posRow = 0; posRow<3; posRow++) {
+								for(int posCol =0; posCol <3; posCol++) {
+									checkCurrent[0] = Character.getNumericValue(currentBlock[posRow][posCol].charAt(0));
+									checkCurrent[1] = Character.getNumericValue(currentBlock[posRow][posCol].charAt(1));
 									
-									
-									/*int numberOfPossibillities = 9;
-									for(int value : allCells[checkCurrent[0]][checkCurrent[1]].getPossibilities()) {
-										if(value != 0)
-										{
-											numberOfPossibillities--;
-										}
-									}
-									if(numberOfPossibillities == 1) {
-										allCells[checkCurrent[0]][checkCurrent[1]].setValue(foundValue);
-									}*/
-								}								
+									//This removes found possiblevalue from list
+									//TODO, remove possibleValue after all possible values have been found
+									//use foundPossibillities
+									foundPossibleValue = allCells[checkCurrent[0]][checkCurrent[1]].getValue();
+									if(foundPossibleValue == 0) {
+										
+										RemovePossibillity(checkCurrent[0], checkCurrent[1], foundValue);
+									}								
+								}
 							}
 						}
-						
-						
 					}
-					else
-					{
-						//go next
-					}
-					
-					
 				}
 			}
+			
+			//TODO REMOVE
+			System.out.println("----------");
+			System.out.print("After Block");
+			WriteField();
+			
+			//loop through row
+			for(int rowRow =0; rowRow<9; rowRow++) {
+				
+				for(int rowCol=0; rowCol<9; rowCol++) {
+									
+					foundValue = allCells[rowRow][rowCol].getValue();
+					
+					if(foundValue != 0) {
+						
+						for(int checkCol =0; checkCol<9; checkCol++) {
+							
+							foundPossibleValue = allCells[rowRow][checkCol].getValue();
+							if(foundPossibleValue == 0) {
+								RemovePossibillity(rowRow, checkCol, foundValue);
+							}
+						}
+					}
+				}
+			}
+			
+			//TODO REMOVE
+			System.out.println("----------");
+			System.out.print("After Row");
+			WriteField();
+			
+			//loop through col
+			for(int colCol =0; colCol<9; colCol++) {
+				
+				for(int colRow=0; colRow<9; colRow++) {
+									
+					foundValue = allCells[colRow][colCol].getValue();
+					
+					if(foundValue != 0) {
+						
+						for(int checkRow =0; checkRow<9; checkRow++) {
+							
+							foundPossibleValue = allCells[checkRow][colCol].getValue();
+							if(foundPossibleValue == 0) {
+								RemovePossibillity(checkRow, colCol, foundValue);
+							}
+						}
+					}
+				}
+			}
+			
+			//TODO REMOVE
+			System.out.println("----------");
+			System.out.print("AfterCol");
+			WriteField();
 		}
 		
-		
-		
-		//loop through row
-		
-		//loop through col
 		
 		
 	}	
@@ -194,8 +232,32 @@ public class GameController {
 		}
 	}
 	
-	private void RemovePossibillity() {
+	private void RemovePossibillity(int row, int col, int val) {
 		
+
+		
+		if(allCells[row][col].getPossibilities()[val-1] == val) {
+			allCells[row][col].removePossibilityValue(val);
+			hasChanged = true;
+		}
+		 
+		int numberOfPossibillities = 9;
+		for(int value : allCells[row][col].getPossibilities()) {
+			if(value == 0)
+			{
+				numberOfPossibillities--;
+			}
+		}
+		if(numberOfPossibillities == 1) {			
+			//find value to be replaced and place here
+			for(int value : allCells[row][col].getPossibilities()) {
+				if(value != 0)
+				{
+					allCells[row][col].setValue(value);
+					hasChanged = true;
+				}
+			}
+		}
 	}
 	
 	//remove
@@ -211,7 +273,8 @@ public class GameController {
 		}
 	}
 	
-	public void writeField() {
+	//remove
+	public void WriteField() {
 		System.out.println();
 		for(int i =0; i<9; i++) {
 			for(int j =0; j<9; j++) {

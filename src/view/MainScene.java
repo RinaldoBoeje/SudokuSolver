@@ -46,7 +46,8 @@ public class MainScene extends Scene{
 				this.gameController.readPuzzle(loadPuzzle());
 				//TODO REMOVE, Put under button, JUST TEMP
 				this.gameController.Solver();
-				this.gameController.showMeTheMoney();
+				//TODO REMOVE
+				//this.gameController.showMeTheMoney();
 			} catch (IOException | SudokuException e1) {
 			}
 		});
